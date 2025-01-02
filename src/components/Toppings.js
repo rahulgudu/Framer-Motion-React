@@ -11,11 +11,25 @@ const Toppings = ({ addTopping, pizza }) => {
     "tomatoes",
   ];
 
+  const toppingsVariant = {
+    hidden: {
+      x: "-100vw",
+    },
+    visible: {
+      x: 0,
+      transition: {
+        delay: 0.5,
+        type: "spring",
+        stiffness: 121,
+      },
+    },
+  };
+
   return (
     <motion.div
-      initial={{ x: "100vw" }}
-      animate={{ x: 0 }}
-      transition={{ delay: 0.5, type: "spring", stiffness: 121 }}
+      variants={toppingsVariant}
+      initial="hidden"
+      animate="visible"
       className="toppings container">
       <h3>Step 2: Choose Toppings</h3>
       <ul>
