@@ -2,21 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 const Home = () => {
+  const buttonAnimations = {
+    // visible: {
+    //   x: [0, -20, 20, -20, 20, 0], // keyframes
+    //   transition: {
+    //     delay: 2,
+    //   },
+    // },
+
+    hover: {
+      scale: [1.1, 1, 1.1, 1, 1.1, 1],
+      textShadow: "0px 0px 8px rgb(255, 255, 255)",
+      boxShadow: "0px 0px 8px rgb(255, 255, 255)",
+    },
+  };
   return (
     <motion.div className="home container" animate={{}}>
-      <motion.h2
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ type: "tween", delay: 0.2, duration: 0.2 }}>
-        Welcome to Pizza Joint
-      </motion.h2>
+      <h2>Welcome to Pizza Joint</h2>
       <Link to="/base">
         <motion.button
-          whileHover={{
-            scale: 1.1,
-            textShadow: "0px 0px 8px rgb(255, 255, 255)",
-            boxShadow: "0px 0px 8px rgb(255, 255, 255)",
-          }}>
+          variants={buttonAnimations}
+          // animate="visible"
+          whileHover="hover">
           Create Your Pizza
         </motion.button>
       </Link>
