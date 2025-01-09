@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Base = ({ addBase, pizza }) => {
   const bases = ["Classic", "Thin & Crispy", "Thick Crust"];
 
-  const containeVariants = {
+  const containerVariants = {
     hidden: {
       opacity: 0,
       x: "100vw",
@@ -16,6 +16,12 @@ const Base = ({ addBase, pizza }) => {
         delay: 0.5,
         type: "spring",
         stiffness: 121,
+      },
+      exit: {
+        x: "-100vw",
+        transition: {
+          ease: "easeInOut",
+        },
       },
     },
   };
@@ -46,9 +52,10 @@ const Base = ({ addBase, pizza }) => {
   };
   return (
     <motion.div
-      variants={containeVariants}
+      variants={containerVariants}
       initial="hidden"
       animate="visible"
+      exit="exit"
       className="base container">
       <h3>Step 1: Choose Your Base</h3>
       <ul>

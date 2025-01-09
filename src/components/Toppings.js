@@ -13,14 +13,22 @@ const Toppings = ({ addTopping, pizza }) => {
 
   const toppingsVariant = {
     hidden: {
+      opacity: 0,
       x: "-100vw",
     },
     visible: {
+      opacity: 1,
       x: 0,
       transition: {
         delay: 0.5,
         type: "spring",
         stiffness: 121,
+      },
+      exit: {
+        x: "-100vw",
+        transition: {
+          ease: "easeInOut",
+        },
       },
     },
   };
@@ -42,7 +50,8 @@ const Toppings = ({ addTopping, pizza }) => {
       variants={toppingsVariant}
       initial="hidden"
       animate="visible"
-      className="toppings container">
+      className="toppings container"
+      exit="exit">
       <h3>Step 2: Choose Toppings</h3>
       <ul>
         {toppings.map((topping) => {
