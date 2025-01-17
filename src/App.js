@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -7,7 +7,16 @@ import Toppings from "./components/Toppings";
 import Order from "./components/Order";
 import { AnimatePresence } from "framer-motion";
 import Modal from "./components/Modal";
+import Loader from "./components/Loader";
 function App() {
+  const [showLoader, setShowLoader] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
   const [showModal, setShowModal] = useState(false);
   const location = useLocation();
 
@@ -26,6 +35,17 @@ function App() {
     }
     setPizza({ ...pizza, toppings: newToppings });
   };
+
+  if (showLoader) {
+    return (
+      <div
+        style={{
+          marginTop: "25vw",
+        }}>
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
