@@ -149,9 +149,22 @@ li span.active::before {
 }
 
 .loader {
-  width: 40px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   margin: 40px auto;
   border-radius: 50%;
   background: #fff;
+}
+
+.loader-btn {
+  background: rgb(139, 3, 139);
+  width: 100px;
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 50px;
+  margin: auto auto;
+  cursor: pointer;
+}
+.loader-btn:hover {
+  background: rgb(52, 1, 52);
 }
