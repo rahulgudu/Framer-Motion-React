@@ -1,14 +1,13 @@
 import Container from "./components/Container";
 import Header from "./components/Header";
+import Hero from "./components/sections/hero";
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        <div className="h-[300vh]">
-          <Container>Hero Component</Container>
-        </div>
+        <Hero />
         <div>
           <Container>upsc</Container>
         </div>
