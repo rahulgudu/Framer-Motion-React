@@ -3,9 +3,9 @@ import Container from "../Container";
 
 const Hero = () => {
   return (
-    <div className="relative  text-white bg-background">
-      <div className="absolute left-0 top-0 w-full">
-        <img src="/posters/herobg.jpg" className="h-[90vh] w-full" />
+    <div className="relative text-white bg-background">
+      <div className="absolute left-0 -top-[44px] w-full h-[200vh]">
+        <img src="/posters/herobg.jpg" className="h-screen w-full sticky top-0" />
         <div className="bg-background absolute inset-0 opacity-50"></div>
       </div>
       <Container className="relative z-10 pb-7 min-h-[100svh] flex flex-col justify-center space-y-12 items-start">
