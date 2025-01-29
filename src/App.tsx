@@ -1,15 +1,16 @@
 import Container from "./components/Container";
 import Header from "./components/Header";
 import Hero from "./components/sections/hero";
+import Usps from "./components/sections/usps";
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <div>
-          <Container>upsc</Container>
+        <div className="bg-background">
+          <Hero />
+          <Usps />
         </div>
         <div>
           <Container>3 col layout</Container>

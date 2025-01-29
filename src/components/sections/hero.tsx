@@ -21,7 +21,7 @@ const Hero = () => {
     },
   };
   return (
-    <div className="relative h-[300vh] text-white bg-background">
+    <div className="relative text-white bg-background">
       <motion.div
         style={{ opacity }}
         ref={imageRef}
