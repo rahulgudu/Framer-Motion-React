@@ -1,5 +1,5 @@
-import Container from "./components/Container";
 import Header from "./components/Header";
+import Carousel from "./components/sections/carousel";
 import Hero from "./components/sections/hero";
 import Usps from "./components/sections/usps";
 
@@ -12,12 +12,8 @@ function App() {
           <Hero />
           <Usps />
         </div>
-        <div>
-          <Container>3 col layout</Container>
-        </div>
-        <div>
-          <Container>Carousel with posters</Container>
-        </div>
+        <Carousel />
+        <div className="h-[300vh]"></div>
       </main>
     </>
   );
