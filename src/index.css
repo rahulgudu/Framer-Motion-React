@@ -18,4 +18,16 @@
   --text-3xl: 1.75rem;
   --text-4xl: 2.5rem;
   --text-5xl: 4.5rem;
+
+  @keyframes carousel-move {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  --animate-carousel-move: carousel-move var(--duration, 50s) infinite;
+  --animate-carousel-move1: carousel-move var(--duration, 70s) infinite;
 }
+
