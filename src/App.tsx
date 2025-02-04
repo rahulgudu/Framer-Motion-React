@@ -8,12 +8,12 @@ function App() {
     <>
       <Header />
       <main>
-        <div className="bg-background">
+        <div className="bg-background relative z-10">
           <Hero />
           <Usps />
         </div>
         <Carousel />
-        <div className="h-[300vh]"></div>
+        <div className=""></div>
       </main>
     </>
   );

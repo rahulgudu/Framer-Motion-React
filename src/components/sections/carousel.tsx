@@ -1,35 +1,59 @@
+import { useScroll, useTransform, motion } from "framer-motion";
 import {
   Movie,
   movies,
   randomMoviesSet1,
   randomMoviesSet2,
 } from "../../movies";
+import { useMemo, useRef } from "react";
+import { useWindowSize } from "react-use";
 
 const Carousel = () => {
+  const { width, height } = useWindowSize();
+  const carouselWrapperRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: carouselWrapperRef,
+    offset: ["start start", "end start"],
+  });
+
+  
+
+  const maximunScale = useMemo(() => {
+    const windowYRatio = height / width;
+    const xScale = 1.66667;
+    const yScale = xScale * (16 / 9) * windowYRatio;
+    return Math.max(xScale, yScale);
+  }, [width, height]);
+
+  const scale = useTransform(scrollYProgress, [0.3, 0.5, 0.66], [maximunScale * 1.1, maximunScale, 1]);
   return (
     <div className="bg-background p-8">
-      <div className="overflow-clip">
-        <div className="flex gap-5 left-1/2 -translate-x-1/2 mb-5">
-          <div className="shrink-0 aspect-video w-[60vw] rounded-2xl overflow-clip">
-            <img
-              className="w-full h-full object-cover"
-              src={movies[0].poster}
-              alt={movies[0].name}
-            />
-          </div>
-          <div className="shrink-0 w-[60vw] rounded-2xl overflow-clip">
-            <img
-              className="w-full h-full object-cover"
-              src={movies[1].poster}
-              alt={movies[1].name}
-            />
-          </div>
-          <div className="shrink-0 w-[60vw] rounded-2xl overflow-clip">
-            <img
-              className="w-full h-full object-cover"
-              src={movies[2].poster}
-              alt={movies[2].name}
-            />
+      <div className="mt-[-80vh] h-[300vh] overflow-clip">
+        <div className="h-screen sticky top-0 flex items-center">
+          <div className="flex relative gap-5 left-1/2 -translate-x-1/2 mb-5">
+            <div className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              <img
+                className="w-full h-full object-fill"
+                src={movies[0].poster}
+                alt={movies[0].name}
+              />
+            </div>
+            <motion.div
+              style={{ scale }}
+              className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              <img
+                className="w-full h-full object-fill"
+                src={movies[1].poster}
+                alt={movies[1].name}
+              />
+            </motion.div>
+            <div className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              <img
+                className="w-full h-full object-fill"
+                src={movies[2].poster}
+                alt={movies[2].name}
+              />
+            </div>
           </div>
         </div>
       </div>
