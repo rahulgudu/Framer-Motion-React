@@ -16,8 +16,6 @@ const Carousel = () => {
     offset: ["start start", "end start"],
   });
 
-  
-
   const maximunScale = useMemo(() => {
     const windowYRatio = height / width;
     const xScale = 1.66667;
@@ -25,19 +23,37 @@ const Carousel = () => {
     return Math.max(xScale, yScale);
   }, [width, height]);
 
-  const scale = useTransform(scrollYProgress, [0.3, 0.5, 0.66], [maximunScale * 1.1, maximunScale, 1]);
+  const scale = useTransform(
+    scrollYProgress,
+    [0.3, 0.5, 0.66],
+    [maximunScale * 1.1, maximunScale, 1]
+  );
+
+  const postersOpacity = useTransform(scrollYProgress, [0.64, 0.66], [0, 1]);
+  const posterTranlateXLeft = useTransform(
+    scrollYProgress,
+    [0.64, 0.66],
+    [-20, 0]
+  );
+  const posterTranlateXRight = useTransform(
+    scrollYProgress,
+    [0.64, 0.66],
+    [20, 0]
+  );
   return (
     <div className="bg-background p-8">
       <div className="mt-[-80vh] h-[300vh] overflow-clip">
         <div className="h-screen sticky top-0 flex items-center">
           <div className="flex relative gap-5 left-1/2 -translate-x-1/2 mb-5">
-            <div className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+            <motion.div
+              style={{ opacity: postersOpacity, x: posterTranlateXLeft }}
+              className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
               <img
                 className="w-full h-full object-fill"
                 src={movies[0].poster}
                 alt={movies[0].name}
               />
-            </div>
+            </motion.div>
             <motion.div
               style={{ scale }}
               className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
@@ -47,18 +63,20 @@ const Carousel = () => {
                 alt={movies[1].name}
               />
             </motion.div>
-            <div className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+            <motion.div
+              style={{ opacity: postersOpacity, x: posterTranlateXRight }}
+              className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
               <img
                 className="w-full h-full object-fill"
                 src={movies[2].poster}
                 alt={movies[2].name}
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
 
-      <div className="space-y-3 overflow-clip">
+      <div className="space-y-3 overflow-clip -mt-[90px] pt-4">
         <div className="animate-carousel-move  ml-[2px]">
           <SmallCarousel movies={randomMoviesSet1} />
         </div>
