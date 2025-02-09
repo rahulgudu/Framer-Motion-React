@@ -1,12 +1,18 @@
-import { useScroll, useTransform, motion } from "framer-motion";
+import {
+  useScroll,
+  useTransform,
+  motion,
+  useMotionValueEvent,
+} from "framer-motion";
 import {
   Movie,
   movies,
   randomMoviesSet1,
   randomMoviesSet2,
 } from "../../movies";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useWindowSize } from "react-use";
+import Button from "../Button";
 
 const Carousel = () => {
   const { width, height } = useWindowSize();
@@ -40,8 +46,19 @@ const Carousel = () => {
     [0.64, 0.66],
     [20, 0]
   );
+
+  const [carouselVariant, setCarouselVarient] = useState<"inactive" | "active">(
+    "inactive"
+  );
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (progress >= 0.5) {
+      setCarouselVarient("active");
+    } else {
+      setCarouselVarient("inactive");
+    }
+  });
   return (
-    <div className="bg-background p-8">
+    <motion.div animate={carouselVariant} className="bg-background p-10">
       <div className="mt-[-80vh] h-[300vh] overflow-clip">
         <div className="h-screen sticky top-0 flex items-center">
           <div className="flex relative gap-5 left-1/2 -translate-x-1/2 mb-5">
@@ -56,12 +73,21 @@ const Carousel = () => {
             </motion.div>
             <motion.div
               style={{ scale }}
-              className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              className="relative aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
               <img
                 className="w-full h-full object-fill"
                 src={movies[1].poster}
                 alt={movies[1].name}
               />
+              <motion.div
+                variants={{
+                  active: { opacity: 1 },
+                  inactive: { opacity: 0 },
+                }}
+                className="absolute flex items-center justify-between p-5 text-white text-lg left-0 bottom-0 w-full">
+                <p>Captain America</p>
+                <Button size="lg">Watch Now</Button>
+              </motion.div>
             </motion.div>
             <motion.div
               style={{ opacity: postersOpacity, x: posterTranlateXRight }}
@@ -77,14 +103,26 @@ const Carousel = () => {
       </div>
 
       <div className="space-y-3 overflow-clip -mt-[90px] pt-4">
-        <div className="animate-carousel-move  ml-[2px]">
+        <motion.div
+          variants={{
+            active: { opacity: 1, y: 0 },
+            inactive: { opacity: 0, y: 20 },
+          }}
+          transition={{ duration: 0.2 }}
+          className="animate-carousel-move  ml-[2px]">
           <SmallCarousel movies={randomMoviesSet1} />
-        </div>
-        <div className="animate-carousel-move1 -ml-4">
+        </motion.div>
+        <motion.div
+          variants={{
+            active: { opacity: 1, y: 0 },
+            inactive: { opacity: 0, y: 20 },
+          }}
+          transition={{ duration: 0.2 }}
+          className="animate-carousel-move1 -ml-4">
           <SmallCarousel movies={randomMoviesSet2} />
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
