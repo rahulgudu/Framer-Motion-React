@@ -40,7 +40,7 @@ const Hero = () => {
           exit="hidden"
           viewport={{ amount: 0.9 }}
           className="flex flex-col justify-center space-y-12 items-start">
-          <h1 className="mt-40 text-5xl font-bold leading-[1.05]">
+          <h1 className="mt-40 text-4xl md:text-5xl font-bold leading-[1.05]">
             All Apple Orignal. <br />
             Only on Apple TV+
           </h1>

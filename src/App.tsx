@@ -13,7 +13,6 @@ function App() {
           <Usps />
         </div>
         <Carousel />
-        <div className=""></div>
       </main>
     </>
   );

@@ -5,13 +5,13 @@ export type Movie = {
 export const movies = [
   {
     poster:
-      "https://anniehaydesign.weebly.com/uploads/9/5/4/6/95469676/landscape-poster-3_orig.jpg ",
-    name: "Captain America and the Winter Soilder",
+      "https://rukminim2.flixcart.com/image/850/1000/poster/q/r/v/posterskart-interstellar-movie-poster-pkis04-medium-original-imaebctvytcgcgcx.jpeg?q=90&crop=false",
+    name: "Interstellar",
   },
   {
     poster:
-      "https://rukminim2.flixcart.com/image/850/1000/poster/q/r/v/posterskart-interstellar-movie-poster-pkis04-medium-original-imaebctvytcgcgcx.jpeg?q=90&crop=false",
-    name: "Interstellar",
+      "https://anniehaydesign.weebly.com/uploads/9/5/4/6/95469676/landscape-poster-3_orig.jpg ",
+    name: "Captain America and the Winter Soilder",
   },
   {
     poster:

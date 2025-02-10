@@ -64,7 +64,7 @@ const Carousel = () => {
           <div className="flex relative gap-5 left-1/2 -translate-x-1/2 mb-5">
             <motion.div
               style={{ opacity: postersOpacity, x: posterTranlateXLeft }}
-              className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              className="aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-clip">
               <img
                 className="w-full h-full object-fill"
                 src={movies[0].poster}
@@ -73,7 +73,7 @@ const Carousel = () => {
             </motion.div>
             <motion.div
               style={{ scale }}
-              className="relative aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              className="relative aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-clip">
               <img
                 className="w-full h-full object-fill"
                 src={movies[1].poster}
@@ -84,14 +84,14 @@ const Carousel = () => {
                   active: { opacity: 1 },
                   inactive: { opacity: 0 },
                 }}
-                className="absolute flex items-center justify-between p-5 text-white text-lg left-0 bottom-0 w-full">
-                <p>Captain America</p>
-                <Button size="lg">Watch Now</Button>
+                className="absolute flex flex-col md:flex-row items-center justify-between p-5 text-white text-lg left-0 bottom-0 w-full">
+                <p>{movies[1].name}</p>
+                <Button>Watch Now</Button>
               </motion.div>
             </motion.div>
             <motion.div
               style={{ opacity: postersOpacity, x: posterTranlateXRight }}
-              className="aspect-video shrink-0 w-[60vw] rounded-2xl overflow-clip">
+              className="aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-clip">
               <img
                 className="w-full h-full object-fill"
                 src={movies[2].poster}
@@ -102,7 +102,7 @@ const Carousel = () => {
         </div>
       </div>
 
-      <div className="space-y-3 overflow-clip -mt-[90px] pt-4">
+      <div className="space-y-3 overflow-clip -mt-[180px] md:-mt-[90px] pt-4">
         <motion.div
           variants={{
             active: { opacity: 1, y: 0 },
@@ -133,7 +133,7 @@ const SmallCarousel = ({ movies }: { movies: Movie[] }) => {
         {movies.map((movies, index) => (
           <div
             key={`${movies.name} - ${index}`}
-            className="w-[23vw] aspect-video shrink-0">
+            className="w-[40vw] md:w-[23vw] aspect-video shrink-0">
             <img
               className="h-full w-full object-cover rounded-xl"
               src={movies.poster}
