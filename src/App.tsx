@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import AppleTVUI from "./components/sections/appletvui";
 import Carousel from "./components/sections/carousel";
 import Hero from "./components/sections/hero";
 import Usps from "./components/sections/usps";
@@ -13,6 +14,7 @@ function App() {
           <Usps />
         </div>
         <Carousel />
+        <AppleTVUI />
       </main>
     </>
   );
