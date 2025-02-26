@@ -1,4 +1,4 @@
-import { FaShoppingBag } from "react-icons/fa";
+import { FaBars, FaShoppingBag, FaTimes } from "react-icons/fa";
 import { IoLogoApple } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import Button from "./Button";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 const Header = () => {
   const [isOpen, setIsOpen] = useState<string | null>(null);
-  console.log(isOpen);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -17,47 +17,56 @@ const Header = () => {
             <IoLogoApple className="text-2xl" />{" "}
             <span className="sr-only">Back to homepage</span>
           </a>
-          <button
-            className="text-xs"
-            onMouseEnter={() => setIsOpen("Mac")}
-            onMouseLeave={() => setIsOpen(null)}>
-            Mac
-          </button>
-          <button className="text-xs" onMouseEnter={() => setIsOpen("Store")}>
-            Store
-          </button>
-          <button className="text-xs" onMouseEnter={() => setIsOpen("iPad")}>
-            iPad
-          </button>
-          <button className="text-xs" onMouseEnter={() => setIsOpen("iPhone")}>
-            iPhone
-          </button>
-          <button className="text-xs" onMouseEnter={() => setIsOpen("Watch")}>
-            Watch
-          </button>
-          <button className="text-xs" onMouseEnter={() => setIsOpen("AirPods")}>
-            AirPods
-          </button>
-          <button
-            className="text-xs"
-            onMouseEnter={() => setIsOpen("Tv & Home")}>
-            TV & Home
-          </button>
-          <a href="/" className="text-xs">
-            Entertainment
-          </a>
-          <a href="/" className="text-xs">
-            Accessories
-          </a>
-          <a href="/" className="text-xs">
-            Support
-          </a>
-          <a href="/">
-            <IoSearch className="text-xl" />
-          </a>
-          <a href="/">
-            <FaShoppingBag className="text-xl" />
-          </a>
+
+          {/* Desktop Navgation */}
+          <div className="hidden md:flex space-x-14">
+            {[
+              "Mac",
+              "Store",
+              "iPad",
+              "iPhone",
+              "Watch",
+              "AirPods",
+              "TV & Home",
+            ].map((item) => (
+              <button
+                key={item}
+                className="text-xs"
+                onMouseEnter={() => setIsOpen(item)}
+                onMouseLeave={() => setIsOpen(null)}>
+                {item}
+              </button>
+            ))}
+            <a href="/" className="text-xs">
+              Entertainment
+            </a>
+            <a href="/" className="text-xs">
+              Accessories
+            </a>
+            <a href="/" className="text-xs">
+              Support
+            </a>
+          </div>
+
+          <div className="flex items-center space-x-10">
+            <a href="/">
+              <IoSearch className="text-xl" />
+            </a>
+            <a href="/">
+              <FaShoppingBag className="text-xl" />
+            </a>
+
+            {/* Hamburger Menu */}
+            <button
+              className="md:hidden"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              {menuOpen ? (
+                <FaTimes className="text-xl" />
+              ) : (
+                <FaBars className="text-xl" />
+              )}
+            </button>
+          </div>
         </Container>
         {isOpen !== null && (
           <motion.div
@@ -94,6 +103,36 @@ const Header = () => {
                 </ul>
               </div>
             </div>
+          </motion.div>
+        )}
+
+        {/* mobile menu */}
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden absolute left-0 top-full w-full bg-black text-white p-6 shadow-lg z-30">
+            <ul className="space-y-4">
+              {[
+                "Mac",
+                "Store",
+                "iPad",
+                "iPhone",
+                "Watch",
+                "AirPods",
+                "TV & Home",
+                "Entertainment",
+                "Accessories",
+                "Support",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="text-sm border-b border-gray-700 pb-2">
+                  <a href="/">{item}</a>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         )}
       </header>
