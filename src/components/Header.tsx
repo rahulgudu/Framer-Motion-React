@@ -28,6 +28,9 @@ const Header = () => {
               "Watch",
               "AirPods",
               "TV & Home",
+              "Entertainment",
+              "Accessories",
+              "Support",
             ].map((item) => (
               <button
                 key={item}
@@ -37,15 +40,6 @@ const Header = () => {
                 {item}
               </button>
             ))}
-            <a href="/" className="text-xs">
-              Entertainment
-            </a>
-            <a href="/" className="text-xs">
-              Accessories
-            </a>
-            <a href="/" className="text-xs">
-              Support
-            </a>
           </div>
 
           <div className="flex items-center space-x-10">
