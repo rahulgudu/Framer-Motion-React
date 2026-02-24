@@ -16,12 +16,17 @@ import Button from "../Button";
 
 const Carousel = () => {
   const { width, height } = useWindowSize();
+
+  // ✅ FIX 1: Scroll container ref
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
+
+  // ✅ FIX 2: Correct scroll tracking
   const { scrollYProgress } = useScroll({
     target: carouselWrapperRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end end"],
   });
 
+  // --- SAME SCALE LOGIC (UNCHANGED) ---
   const maximunScale = useMemo(() => {
     const windowYRatio = height / width;
     const xScale = 1.66667;
@@ -29,69 +34,84 @@ const Carousel = () => {
     return Math.max(xScale, yScale);
   }, [width, height]);
 
+  // ✅ FIX 3: Wider scale curve
   const scale = useTransform(
     scrollYProgress,
-    [0.3, 0.5, 0.66],
-    [maximunScale * 1.1, maximunScale, 1]
+    [0.25, 0.45, 0.7],
+    [maximunScale * 1.1, maximunScale, 1],
   );
 
-  const postersOpacity = useTransform(scrollYProgress, [0.64, 0.66], [0, 1]);
+  // ✅ FIX 4: Stable opacity & slide
+  const postersOpacity = useTransform(scrollYProgress, [0.55, 0.75], [0, 1]);
+
   const posterTranlateXLeft = useTransform(
     scrollYProgress,
-    [0.64, 0.66],
-    [-20, 0]
-  );
-  const posterTranlateXRight = useTransform(
-    scrollYProgress,
-    [0.64, 0.66],
-    [20, 0]
+    [0.55, 0.75],
+    [-40, 0],
   );
 
-  const [carouselVariant, setCarouselVarient] = useState<"inactive" | "active">(
-    "inactive"
+  const posterTranlateXRight = useTransform(
+    scrollYProgress,
+    [0.55, 0.75],
+    [40, 0],
   );
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    if (progress >= 0.5) {
-      setCarouselVarient("active");
-    } else {
-      setCarouselVarient("inactive");
-    }
+
+  // --- SAME VARIANT LOGIC, BUT STABLE ---
+  const [carouselVariant, setCarouselVarient] = useState<"inactive" | "active">(
+    "inactive",
+  );
+
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (p > 0.55) setCarouselVarient("active");
+    if (p < 0.45) setCarouselVarient("inactive");
   });
+
   return (
-    <motion.div animate={carouselVariant} className="bg-background p-10">
-      <div className="mt-[-80vh] h-[300vh] overflow-clip">
-        <div className="h-screen sticky top-0 flex items-center">
-          <div className="flex relative gap-5 left-1/2 -translate-x-1/2 mb-5">
+    <motion.section
+      ref={carouselWrapperRef}
+      animate={carouselVariant}
+      className="bg-background">
+      {/* ✅ FIX 5: Explicit scroll space */}
+      <div className="h-[260vh]">
+        <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+          <div className="flex relative gap-5">
+            {/* LEFT POSTER */}
             <motion.div
               style={{ opacity: postersOpacity, x: posterTranlateXLeft }}
-              className="aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-clip">
+              className="aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-hidden">
               <img
                 className="w-full h-full object-fill"
                 src={movies[0].poster}
                 alt={movies[0].name}
               />
             </motion.div>
+
+            {/* CENTER POSTER */}
             <motion.div
               style={{ scale }}
-              className="relative aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-clip">
+              className="relative aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-hidden">
               <img
                 className="w-full h-full object-fill"
                 src={movies[1].poster}
                 alt={movies[1].name}
               />
+
               <motion.div
                 variants={{
-                  active: { opacity: 1 },
-                  inactive: { opacity: 0 },
+                  active: { opacity: 1, y: 0 },
+                  inactive: { opacity: 0, y: 20 },
                 }}
+                transition={{ duration: 0.3 }}
                 className="absolute flex flex-col md:flex-row items-center justify-between p-5 text-white text-lg left-0 bottom-0 w-full">
                 <p>{movies[1].name}</p>
                 <Button>Watch Now</Button>
               </motion.div>
             </motion.div>
+
+            {/* RIGHT POSTER */}
             <motion.div
               style={{ opacity: postersOpacity, x: posterTranlateXRight }}
-              className="aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-clip">
+              className="aspect-[9/16] md:aspect-video shrink-0 w-[300px] md:w-[60vw] rounded-2xl overflow-hidden">
               <img
                 className="w-full h-full object-fill"
                 src={movies[2].poster}
@@ -102,27 +122,29 @@ const Carousel = () => {
         </div>
       </div>
 
-      <div className="space-y-3 overflow-clip -mt-[180px] md:-mt-[90px] pt-4">
+      {/* SMALL CAROUSELS */}
+      <div className="space-y-4 -mt-24 pt-8 overflow-hidden">
         <motion.div
           variants={{
             active: { opacity: 1, y: 0 },
             inactive: { opacity: 0, y: 20 },
           }}
-          transition={{ duration: 0.2 }}
-          className="animate-carousel-move  ml-[2px]">
+          transition={{ duration: 0.3 }}
+          className="animate-carousel-move1">
           <SmallCarousel movies={randomMoviesSet1} />
         </motion.div>
+
         <motion.div
           variants={{
             active: { opacity: 1, y: 0 },
             inactive: { opacity: 0, y: 20 },
           }}
-          transition={{ duration: 0.2 }}
-          className="animate-carousel-move1 -ml-4">
+          transition={{ duration: 0.3 }}
+          className="animate-carousel-move">
           <SmallCarousel movies={randomMoviesSet2} />
         </motion.div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 };
 
