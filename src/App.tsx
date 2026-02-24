@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import AppleOneSection from "./components/sections/appleOne";
 import AppleTVUI from "./components/sections/appletvui";
 import Carousel from "./components/sections/carousel";
 import FAQS from "./components/sections/faqs";
@@ -17,6 +18,7 @@ function App() {
         <Carousel />
         <AppleTVUI />
         <FAQS />
+        <AppleOneSection />
       </main>
     </>
   );
