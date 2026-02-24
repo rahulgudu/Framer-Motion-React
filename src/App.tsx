@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import AppleOneSection from "./components/sections/appleOne";
 import AppleTVUI from "./components/sections/appletvui";
+import AppleMusicStudentBanner from "./components/sections/banner";
 import Carousel from "./components/sections/carousel";
 import FAQS from "./components/sections/faqs";
 import Hero from "./components/sections/hero";
@@ -19,6 +20,7 @@ function App() {
         <AppleTVUI />
         <FAQS />
         <AppleOneSection />
+        <AppleMusicStudentBanner />
       </main>
     </>
   );
